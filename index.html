@@ -3,35 +3,31 @@
   <head>
     <meta charset="utf-8">
     <title>VUE JS</title>
-    <script src="vue.js"></script>
+    <script src="vue.min.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
 
-    <div id="id">
+    <div id="app">
       <input type="text" v-on:input="inputFunction">
       <p> {{message}} </p>
     </div>
 
     <script type="text/javascript">
       let app = new Vue({
-        el : "#id",
+        el : "#app",
         data : {
           message : "Hello Vue World"
         },
-        method : {
+        methods : {
           inputFunction : function(event){
           this.message = event.target.value;
           }
         }
       });
 
-      var app2 = new Vue({
-      el: '#app-2',
-      data: {
-      message: 'You loaded this page on ' + new Date().toLocaleString()
-      }
-      })
     </script>
+
 
   </body>
 </html>
