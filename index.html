@@ -8,11 +8,50 @@
   <body>
 
     <div id="app">
-
+      <p v-if="show">You can see me. </p>
+      <p v-else>You also see me well.</p>
+      <p>You always see me right ?</p>
+      <button type="button" name="button" @click="show = !show">SWITCH</button>
+      <br><br><hr><br>
+      <ul>
+        <li v-for="(fruit, index) in fruits"> {{ fruit }} ({{index}})</li>
+      </ul>
+      <button @click="addItems" type="button" >ADD ITEM</button>
+      <hr>
+      <ul>
+        <li v-for="person in persons">
+          <!-- <div class=""> {{person.name}} </div> -->
+          <div v-for="(value, key, index) in person"> {{key}} ({{index}}) :  {{value}} </div>
+        </li>
+      </ul>
+      <hr>
+      <span v-for="number in 10">{{number}}</span>
     </div>
 
     <script type="text/javascript">
       //Vue code goes here ...
+      new Vue({
+        el : "#app",
+        data : {
+          show : true,
+          fruits : ["Apple","Mango","Orange","Bananas"],
+          persons : [
+            {name:"Joro", age:40,country:"USA"},
+            {name:"Sita", age:20,country:"Nepal"}
+          ],
+          count : 0,
+        },
+        methods : {
+            addItems : function(){
+              let myArray = ["Guava","Pineapple","watermellon","Lemon","Sweetpotatos"];
+              this.fruits.push((myArray[this.count++]));
+              if(this.count === myArray.length){
+                this.count = 0;
+              }
+            }
+        },
+      });
+
     </script>
 
   </body>
