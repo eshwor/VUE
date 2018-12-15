@@ -5,35 +5,94 @@
     <title>VUE JS</title>
     <script src="vue.min.js"></script>
     <script src="script.js"></script>
+    <style media="screen">
+      span { background-color:red; color:white; padding: 0.5rem 1rem; }
+      .demo {
+        width: 10rem;
+        height: 10rem;
+        background-color: #DDD;
+        display: inline-block;
+      }
+      .red { background-color: red; }
+      .blue { background-color: blue; }
+      .green { background-color: green; }
+    </style>
   </head>
   <body>
 
     <div id="app">
       <input type="text" v-on:input="inputFunction">
+      <p v-once> {{ message }} </p>
       <p> {{ sayHello() }} </p>
+      <p v-html="rawHTML"></p>
       <a v-bind:href="googleLink" target="_blank"> {{ google }} </a>
+      <br><hr><br>
+      <!-- <button v-on:click="increaseFun(2, $event)" type="button" name="button">CLICK ME</button> -->
+      <button v-on:click="count++" type="button" name="button">Increase</button>
+      <button v-on:click="count--" type="button" name="button">Decrease</button>
+      <p> {{ count }} </p>
+      <p> {{ result() }} </p>
+      <span v-on:mousemove="updateCord">Mouse Coordinates : {{x}} / {{y}}</span><br><br><br>
+      <input v-on:keyup.enter.space="alertMe" type="text" name="" value="">
+      <br><hr>
+      <!-- <div class="demo" @click="testFun()" :class="red()"></div> -->
+      <div class="demo" @click="attachRed = !attachRed" :class="{red : attachRed, blue : !attachRed}"></div>
+      <div class="demo" :class="color"></div>
+      <div class="demo" :style="{backgroundColor : color}"></div>
+      <br><br>
+      <input type="text" v-model="color">
+
+
     </div>
 
     <script type="text/javascript">
+      const myArr = ['blue','red'];
       let app = new Vue({
         el : "#app",
         data : {
           message : "Hello Vue World",
           google : "Google",
           googleLink : "https://www.google.com/",
+          rawHTML : "<h1>VUE is really awesome framework</h1>",
+          count : 0,
+          x : 0,
+          y : 0,
+          // result : '',
+          attachRed : false,
+          color : myArr[0],
         },
         methods : {
           inputFunction : function(event){
           this.message = event.target.value;
-        },
+          },
           sayHello : function(){
+            this.message = "Hello from methods !";
             return this.message;
-          }
+          },
+          // increaseFun: function(parameter, event){
+          //   this.count += parameter;
+          //   this.result = this.count > 5 ? 'Greater then 5' : 'Smaller then 5';
+          // },
+          updateCord : function(event){
+            this.x = event.clientX;
+            this.y = event.clientY;
+          },
+          alertMe : function(){
+            alert("alert alert alert !!!");
+          },
+          result(){
+            return this.count > 5 ? "Greater than 5" : 'Smaller than 5';
+          },
+          // red(){
+          //   var red = 'red';
+          //   return red;
+          // },
+
+
         }//End of methods
       });
 
     </script>
-
 
   </body>
 </html>
